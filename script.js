@@ -1,5 +1,5 @@
 const componentBlock = document.querySelector("#component-block")
-const textEditor  = document.querySelector("#text-editor")
+const textEditor = document.querySelector("#text-editor")
 const componentButtons = document.querySelectorAll("#component-btn")
 const code = document.querySelector("#code")
 
@@ -13,7 +13,7 @@ componentButtons?.forEach(button => {
 
         const whichButton = button.dataset.component
 
-        // Break this into Different function
+        // Use Javascript Object implement Singleton
         if(whichButton == "heading"){
             appendElementToParent('h1', code)
         }else if(whichButton == "image"){
