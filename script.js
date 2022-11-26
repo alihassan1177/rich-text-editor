@@ -3,6 +3,9 @@ const textEditor  = document.querySelector("#text-editor")
 const componentButtons = document.querySelectorAll("#component-btn")
 const code = document.querySelector("#code")
 
+textEditor.addEventListener('click', ()=>{
+    componentBlock.classList.add("hidden")
+})
 
 componentButtons?.forEach(button => {
     button.addEventListener('click', (e)=>{
@@ -10,14 +13,15 @@ componentButtons?.forEach(button => {
 
         const whichButton = button.dataset.component
 
+        // Break this into Different function
         if(whichButton == "heading"){
-            code.innerHTML += "This is a Heading"
+            appendElementToParent('h1', code)
         }else if(whichButton == "image"){
-            code.innerHTML += "This is a Image"
+            appendElementToParent('img', code)
         }else if(whichButton == "link"){
-            code.innerHTML += "This is a Link"
+            appendElementToParent('a', code)
         }else if (whichButton == "paragraph"){
-            code.innerHTML += "This is a Paragraph"
+            appendElementToParent('p', code)
         }
 
     })
@@ -29,9 +33,17 @@ window.addEventListener('contextmenu', (event) => {
     componentBlockActionOnRightClick(event)
 })
 
-
 function componentBlockActionOnRightClick(event){
     componentBlock.classList.remove("hidden")
     componentBlock.style.top = `${event.clientY - 30}px`
     componentBlock.style.left = `${event.clientX}px`
+}
+
+function createHTMLElement(element) {
+    return document.createElement(element)
+}
+
+function appendElementToParent(elementName, parent) {
+    const element = createHTMLElement(elementName)
+    parent.append(element)
 }
