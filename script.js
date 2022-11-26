@@ -9,37 +9,6 @@ textEditor.addEventListener('click', ()=>{
 
 const headingClasses = ["w-full", "block", "bg-transparent", "border", "border-white", "p-3"]
 
-const components = {
-    "post-heading" : createHTMLElement('input').classList.add(...headingClasses)
-}
-
-componentButtons?.forEach(button => {
-    button.addEventListener('click', (e)=>{
-        componentBlock.classList.add("hidden")
-
-        const whichButton = button.dataset.component
-
-        // Use Javascript Object implement Singleton
-        if(whichButton == "heading"){
-            appendElementToParent('h1', code)
-            appendElementToParent(components["post-heading"], textEditor, false)
-        }else if(whichButton == "image"){
-            appendElementToParent('img', code)
-        }else if(whichButton == "link"){
-            appendElementToParent('a', code)
-        }else if (whichButton == "paragraph"){
-            appendElementToParent('p', code)
-        }
-
-    })
-})
-
-window.addEventListener('contextmenu', (event) => {
-    if (event.target != textEditor) return
-    event.preventDefault()
-    componentBlockActionOnRightClick(event)
-})
-
 function componentBlockActionOnRightClick(event){
     componentBlock.classList.remove("hidden")
     componentBlock.style.top = `${event.clientY - 30}px`
@@ -58,3 +27,34 @@ function appendElementToParent(elementName, parent, createElement = true) {
         parent.append(elementName)
     }
 }
+
+const components = {
+    "post-heading" : createHTMLElement('input'),
+}
+
+componentButtons?.forEach(button => {
+    button.addEventListener('click', (e)=>{
+        componentBlock.classList.add("hidden")
+
+        const whichButton = button.dataset.component
+
+        // Use Javascript Object implement Singleton
+        if(whichButton == "heading"){
+            appendElementToParent('h1', code)
+        }else if(whichButton == "image"){
+            appendElementToParent('img', code)
+        }else if(whichButton == "link"){
+            appendElementToParent('a', code)
+        }else if (whichButton == "paragraph"){
+            appendElementToParent('p', code)
+        }
+
+    })
+})
+
+window.addEventListener('contextmenu', (event) => {
+    if (event.target != textEditor) return
+    event.preventDefault()
+    componentBlockActionOnRightClick(event)
+})
+
