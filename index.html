@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Rich Text Editor</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black">
+
+	<!-- Components list 
+		- Heading
+		- Paragraph
+		- Image
+		- Link
+	-->
+
+	<div id="text-editor" class="max-w-screen-md mx-auto bg-gray-700 p-3 mt-3">
+		<div id="component-block" class="hidden flex items-center bg-gray-500 max-w-max rounded-md overflow-hidden">	
+			<button data-component="heading" class="p-3 hover:bg-gray-600 transition-colors" id="component-btn">Heading</button>		
+			<button data-component="paragraph" class="p-3 hover:bg-gray-600 transition-colors" id="component-btn">Paragraph</button>		
+			<button data-component="image" class="p-3 hover:bg-gray-600 transition-colors" id="component-btn">Image</button>		
+			<button data-component="link" class="p-3 hover:bg-gray-600 transition-colors" id="component-btn">Link</button>		
+		</div>
+	</div>
+	
+	<script src="./script.js"></script>
+</body>
+</html>
