@@ -2,12 +2,14 @@ const componentBlock = document.querySelector("#component-block")
 const textEditor = document.querySelector("#text-editor")
 const componentButtons = document.querySelectorAll("#component-btn")
 const code = document.querySelector("#code")
+const refreshBtn = document.querySelector("#refresh")
+const preview = document.querySelector("#preview")
 
 const commands = {
-    "heading" : 'h1',
-    "image" : "img",
-    "link" : "a",
-    "paragraph" : "p"
+    "heading" : {"element" : "h1", "input" : "textarea", "class" : ["text-2xl", "text-gray-900", "font-bold", "mb-2"]},
+    "image" : {"element" : "img", "input" : "input", "class" : ["w-full", "block", "mb-2"]},
+    "link" : {"element" : "a", "input" : "textarea", "class" : ["text-base", "text-blue-500", "underline", "cursor-pointer", "mb-2"]},
+    "paragraph" : {"element" : "p", "input" : "textarea", "class" : ["text-base", "text-gray-800", "mb-2"]}
 }
 
-const headingClasses = ["w-full", "block", "bg-transparent", "border", "border-white", "p-3"]
+const inputClasses = ["w-full", "block", "bg-transparent", "border", "border-white", "p-3"]

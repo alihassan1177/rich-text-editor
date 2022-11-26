@@ -6,7 +6,7 @@
 	<title>Rich Text Editor</title>
 	<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-black p-3">
+<body class="bg-black p-3 flex h-screen">
 
 	<!-- Components list 
 		- Heading
@@ -15,7 +15,7 @@
 		- Link
 	-->
 
-	<div id="text-editor" class="max-w-screen-md min-h-[300px] mx-auto bg-gray-700 p-3 mt-3">
+	<div id="text-editor" class="w-full h-full bg-gray-700 p-3">
 		<div id="component-block" class="hidden flex items-center bg-gray-500 max-w-max absolute top-0 left-0 rounded-md overflow-hidden">	
 			<button data-component="heading" class="p-3 hover:bg-gray-600 transition-colors" id="component-btn">Heading</button>		
 			<button data-component="paragraph" class="p-3 hover:bg-gray-600 transition-colors" id="component-btn">Paragraph</button>		
@@ -23,9 +23,13 @@
 			<button data-component="link" class="p-3 hover:bg-gray-600 transition-colors" id="component-btn">Link</button>		
 		</div>
 
-		<div id="code" class="absolute top-0 left-0 opacity-0"></div>
+		<div id="code" class="hidden"></div>
 	</div>
 	
+	<div class="relative w-full p-3 h-full bg-white overflow-y-scroll">
+		<button id="refresh" class="fixed top-4 right-4 bg-gray-800 text-white p-3 rounded-md">Refresh</button>
+		<div id="preview"></div>
+	</div>
 	<script src="./variables.js"></script>
 	<script src="./functions.js"></script>
 	<script src="./listeners.js"></script>
