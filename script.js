@@ -7,6 +7,12 @@ textEditor.addEventListener('click', ()=>{
     componentBlock.classList.add("hidden")
 })
 
+const headingClasses = ["w-full", "block", "bg-transparent", "border", "border-white", "p-3"]
+
+const components = {
+    "post-heading" : createHTMLElement('input').classList.add(...headingClasses)
+}
+
 componentButtons?.forEach(button => {
     button.addEventListener('click', (e)=>{
         componentBlock.classList.add("hidden")
@@ -16,6 +22,7 @@ componentButtons?.forEach(button => {
         // Use Javascript Object implement Singleton
         if(whichButton == "heading"){
             appendElementToParent('h1', code)
+            appendElementToParent(components["post-heading"], textEditor, false)
         }else if(whichButton == "image"){
             appendElementToParent('img', code)
         }else if(whichButton == "link"){
@@ -43,7 +50,11 @@ function createHTMLElement(element) {
     return document.createElement(element)
 }
 
-function appendElementToParent(elementName, parent) {
-    const element = createHTMLElement(elementName)
-    parent.append(element)
+function appendElementToParent(elementName, parent, createElement = true) {
+    if(createElement){
+        const element = createHTMLElement(elementName)
+        parent.append(element)
+    }else{
+        parent.append(elementName)
+    }
 }
