@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello World</h1>
+
+    <button id="swap">Swap Elements</button>
+
+    <script>
+        const swapButton = document.querySelector("#swap")
+
+        const elements = [1,2,3,4,5]
+
+        function swapElements(arr, i, j) {
+            let temp = arr[i]
+            arr[i] = arr[j]
+            arr[j] = temp
+            return arr
+        }
+
+        swapButton.addEventListener('click', ()=>{
+            console.log(swapElements(elements, 0, 4))            
+        })
+    </script>
+</body>
+</html>
