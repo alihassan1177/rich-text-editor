@@ -14,6 +14,8 @@ componentButtons?.forEach(button => {
         input.id = elementID
         element.id = elementID
 
+        input.dataset.element = whichButton
+
         input.classList.add("draggable")
         
         appendElementToParent(element, code, false)
@@ -43,9 +45,11 @@ let startMove = false
 moveBtn.addEventListener("click", ()=>{
     const draggables = document.querySelectorAll(".draggable")
     const elements = document.querySelectorAll(".swap")
-    
+
+    let swapElementID;    
     
     if (!startMove) {
+        code.innerHTML = ""
         moveBtn.innerText = "Stop Moving"
         draggables.forEach(item => {
             item.draggable = true
@@ -64,23 +68,27 @@ moveBtn.addEventListener("click", ()=>{
             item.draggable = false
             item.classList.remove("cursor-move")
         })
+        draggables?.forEach(inputEl => {
+            code.appendChild(generateCode(commands[inputEl.dataset.element]["element"], 
+            inputEl.value, 
+            commands[inputEl.dataset.element]["class"],
+            inputEl.id))
+        })
     }
 
     startMove = !startMove
+    
 
     inputContainer.addEventListener('dragover', (e) => {
         e.preventDefault()
         const afterElement = getDragAfterElement(inputContainer, e.clientY)
         const draggable = document.querySelector('.dragging')
-        const swapOne = code.querySelector(`#${draggable.id}`)
-        const swapTwo = code.querySelector(`#${afterElement?.id}`)
 
-        if (afterElement == null || afterElement == undefined || swapTwo == undefined) {
+        if (afterElement == null || afterElement == undefined) {
             inputContainer.appendChild(draggable)
-            swapElements(swapOne, elements[elements.length - 1])
         } else {
-            swapElements(swapOne, swapTwo)            
             inputContainer.insertBefore(draggable, afterElement)
+            swapElementID = afterElement.id
         }
     })
 })

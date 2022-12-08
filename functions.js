@@ -75,3 +75,12 @@ function swapElements(nodeA, nodeB) {
     // Move `nodeB` to before the sibling of `nodeA`
     parentA.insertBefore(nodeB, siblingA);
 }
+
+function generateCode(element, content, classes, id) {
+    const el = createHTMLElement(element)
+    el.id = id
+    el.innerHTML = content
+    el.classList.add(...classes)
+    attachValueChangeListener(el, id)
+    return el
+}

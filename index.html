@@ -8,15 +8,9 @@
 </head>
 <body class="bg-black p-3 flex h-screen">
 
-	<!-- Components list 
-		- Heading
-		- Paragraph
-		- Image
-		- Link
-	-->
-
 	<div id="text-editor" class="w-full h-full overflow-y-scroll bg-gray-700 p-3">
-		<button id="move" disabled="" class="bg-gray-800 text-white p-3 rounded-md mb-3">Move</button>
+		<button id="move" class="bg-gray-800 text-white p-3 rounded-md mb-3">Move</button>
+
 		<div id="component-block" class="hidden flex items-center bg-gray-500 max-w-max absolute top-0 left-0 rounded-md overflow-hidden">	
 			<button data-component="heading" class="p-3 hover:bg-gray-600 transition-colors" id="component-btn">Heading</button>		
 			<button data-component="paragraph" class="p-3 hover:bg-gray-600 transition-colors" id="component-btn">Paragraph</button>		
@@ -31,6 +25,7 @@
 		<button id="refresh" class="fixed top-6 right-6 bg-gray-800 text-white p-3 rounded-md">Refresh</button>
 		<div id="preview"></div>
 	</div>
+	
 	<script src="./variables.js"></script>
 	<script src="./functions.js"></script>
 	<script src="./listeners.js"></script>
