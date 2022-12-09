@@ -1,5 +1,5 @@
 componentButtons?.forEach(button => {
-    button.addEventListener('click', (e)=>{
+    button.addEventListener('click', (e) => {
         componentBlock.classList.add("hidden")
         const whichButton = button.dataset.component
         const elementID = makeElementID(10)
@@ -15,12 +15,11 @@ componentButtons?.forEach(button => {
         element.id = elementID
 
         input.dataset.element = whichButton
-
         input.classList.add("draggable")
-        
+
         appendElementToParent(element, code, false)
         appendElementToParent(input, inputContainer, false)
-        
+
         attachValueChangeListener(element, elementID)
 
     })
@@ -32,36 +31,34 @@ window.addEventListener('contextmenu', (event) => {
     componentBlockActionOnRightClick(event)
 })
 
-textEditor.addEventListener('click', ()=>{
+textEditor.addEventListener('click', () => {
     componentBlock.classList.add("hidden")
 })
 
-refreshBtn.addEventListener('click', ()=>{
-  preview.innerHTML = code.innerHTML  
+refreshBtn.addEventListener('click', () => {
+    preview.innerHTML = code.innerHTML
 })
 
 
 let startMove = false
-moveBtn.addEventListener("click", ()=>{
+moveBtn.addEventListener("click", () => {
     const draggables = document.querySelectorAll(".draggable")
     const elements = document.querySelectorAll(".swap")
 
-    let swapElementID;    
-    
     if (!startMove) {
         code.innerHTML = ""
         moveBtn.innerText = "Stop Moving"
         draggables.forEach(item => {
             item.draggable = true
-            item.addEventListener("dragstart", ()=>{
-              item.classList.add("dragging")
+            item.addEventListener("dragstart", () => {
+                item.classList.add("dragging")
             })
-            
-            item.addEventListener("dragend", ()=>{
-              item.classList.remove("dragging")
+
+            item.addEventListener("dragend", () => {
+                item.classList.remove("dragging")
             })
             item.classList.add("cursor-move")
-        })            
+        })
     } else {
         moveBtn.innerText = "Move"
         draggables.forEach(item => {
@@ -69,15 +66,14 @@ moveBtn.addEventListener("click", ()=>{
             item.classList.remove("cursor-move")
         })
         draggables?.forEach(inputEl => {
-            code.appendChild(generateCode(commands[inputEl.dataset.element]["element"], 
-            inputEl.value, 
-            commands[inputEl.dataset.element]["class"],
-            inputEl.id))
+            code.appendChild(generateCode(commands[inputEl.dataset.element]["element"],
+                inputEl.value,
+                commands[inputEl.dataset.element]["class"],
+                inputEl.id))
         })
     }
 
     startMove = !startMove
-    
 
     inputContainer.addEventListener('dragover', (e) => {
         e.preventDefault()
@@ -88,8 +84,8 @@ moveBtn.addEventListener("click", ()=>{
             inputContainer.appendChild(draggable)
         } else {
             inputContainer.insertBefore(draggable, afterElement)
-            swapElementID = afterElement.id
         }
+
     })
 })
 

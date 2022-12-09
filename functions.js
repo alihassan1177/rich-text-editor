@@ -27,59 +27,64 @@ function makeElementID(length) {
     return result;
 }
 
+function getURLandText(value) {
+    return {url : value.substr(value.search("url:") + 4), text : value.substr(0, value.search("url:"))}
+}
+
 function attachValueChangeListener(element, id) {
-    let input; 
+    const input = document.querySelector(`textarea#${id}`)
 
     if (element.nodeName == "IMG") {
-        input = document.querySelector(`input#${id}`)
-        input.type = "file"
-        input.addEventListener("change", (e)=>{
-            const image = input.files[0]
-            const reader = new FileReader()
-            reader.addEventListener('load', ()=>{
-                const dataURL = reader.result
-                element.src = dataURL
-            })
-            reader.readAsDataURL(image)
+        input.addEventListener("blur", (e) => {
+            element.src = e.target.value
         })
-    }else{
-        input = document.querySelector(`textarea#${id}`)
-        input.addEventListener("blur", (e)=>{
+    }else if(element.nodeName == "A"){
+        input.addEventListener("blur", (e) => {
+            const value = e.target.value
+            const content = getURLandText(value)
+            const text = content.text
+            const url = content.url
+            element.innerText = text
+            element.href = url
+            element.target = "_blank"
+        })
+    }   
+    else {
+        input.addEventListener("blur", (e) => {
             element.innerText = e.target.value
         })
     }
-
 }
 
 function getDragAfterElement(container, y) {
     const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')]
-  
+
     return draggableElements.reduce((closest, child) => {
-      const box = child.getBoundingClientRect()
-      const offset = y - box.top - box.height / 2
-      if (offset < 0 && offset > closest.offset) {
-        return { offset: offset, element: child }
-      } else {
-        return closest
-      }
+        const box = child.getBoundingClientRect()
+        const offset = y - box.top - box.height / 2
+        if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child }
+        } else {
+            return closest
+        }
     }, { offset: Number.NEGATIVE_INFINITY }).element
-}
-
-function swapElements(nodeA, nodeB) {
-    const parentA = nodeA.parentNode;
-    const siblingA = nodeA.nextSibling === nodeB ? nodeA : nodeA.nextSibling;
-
-    // Move `nodeA` to before the `nodeB`
-    nodeB.parentNode.insertBefore(nodeA, nodeB);
-
-    // Move `nodeB` to before the sibling of `nodeA`
-    parentA.insertBefore(nodeB, siblingA);
 }
 
 function generateCode(element, content, classes, id) {
     const el = createHTMLElement(element)
     el.id = id
-    el.innerHTML = content
+
+    if (element == "img") {
+        el.src = content
+    }else if(element == "a"){
+        const value = getURLandText(content)
+        el.href = value.url
+        el.innerText  = value.text            
+    }
+     else {
+        el.innerHTML = content
+    }
+
     el.classList.add(...classes)
     attachValueChangeListener(el, id)
     return el
